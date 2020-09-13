@@ -15,12 +15,12 @@ public interface GalleryKitListener {
     /**
      * This method will be called when <code>back</code> button is pressed
      */
-    void onBackKeyPressed();
+    void onGalleryKitBackAction();
 
     /**
      * This will be called when <code>Done</code> button is pressed
      *
      * @param selectedDataUris list of data uri selected
      */
-    void onSelectionConfirmed(@NonNull List<String> selectedDataUris);
+    void onGalleryKitSelectionConfirmed(@NonNull List<String> selectedDataUris);
 }

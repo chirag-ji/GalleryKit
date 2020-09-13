@@ -123,7 +123,7 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         } else {
             backBtn.setVisibility(VISIBLE);
             backBtn.setOnClickListener(view ->
-                    Preconditions.checkNotNull(listener, "GalleryKitListener not registered").onBackKeyPressed());
+                    Preconditions.checkNotNull(listener, "GalleryKitListener not registered").onGalleryKitBackAction());
             backBtn.setImageResource(backBtnImageRes);
         }
         doneBtn.setTextColor(doneBtnColor);
@@ -186,7 +186,7 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
 
     private void onDoneAction() {
         Preconditions.checkNotNull(listener, "GalleryKitListener not registered");
-        listener.onSelectionConfirmed(selectedData);
+        listener.onGalleryKitSelectionConfirmed(selectedData);
     }
 
     public void attachToFragment(@NonNull Fragment fragment) {
