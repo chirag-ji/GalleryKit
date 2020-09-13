@@ -24,12 +24,12 @@ public class MainActivity extends AppCompatActivity implements GalleryKitListene
     }
 
     @Override
-    public void onBackKeyPressed() {
+    public void onGalleryKitBackAction() {
         Log.d(TAG, "onBackKeyPressed: back key pressed on gallery kit");
     }
 
     @Override
-    public void onSelectionConfirmed(@NonNull List<String> selectedDataUris) {
+    public void onGalleryKitSelectionConfirmed(@NonNull List<String> selectedDataUris) {
         Log.d(TAG, "onSelectionConfirmed: selectedDataUris.size = " + selectedDataUris.size());
         selectedDataUris.forEach(selectedUri ->
                 Log.d(TAG, "onSelectionConfirmed: selectedUri = " + selectedUri));
