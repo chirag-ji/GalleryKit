@@ -54,17 +54,17 @@ protected void onCreate(Bundle savedInstanceState) {
     galleryKitView.attachToFragmentActivity(this);  
     galleryKitView.registerGalleryKitListener(new GalleryKitListener() {  
     
-    @Override  
-    public void onBackKeyPressed() {  
+   	@Override  
+   	public void onBackKeyPressed() {  
             Log.d(TAG, "onBackKeyPressed: back key pressed on gallery kit");  
         }  
   
-	  @Override  
-	  public void onSelectionConfirmed(@NonNull List<String> selectedDataUris) {  
-            Log.d(TAG, "onSelectionConfirmed: selectedDataUris.size = " + selectedDataUris.size());  
-            selectedDataUris.forEach(selectedUri ->  
-                    Log.d(TAG, "onSelectionConfirmed: selectedUri = " + selectedUri));  
-        }  
+    	@Override  
+    	public void onSelectionConfirmed(@NonNull List<String> selectedDataUris) {  
+    	    Log.d(TAG, "onSelectionConfirmed: selectedDataUris.size = " + selectedDataUris.size());  
+    	    selectedDataUris.forEach(selectedUri ->  
+    	            Log.d(TAG, "onSelectionConfirmed: selectedUri = " + selectedUri));  
+    	}  
     });
     ...
 }
