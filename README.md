@@ -1,6 +1,5 @@
 
-# GalleryKit  
-[![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  
+# GalleryKit   [![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  
   
 GalleryKit is **simplest / beautiful and smartest** gallery picker  
   
