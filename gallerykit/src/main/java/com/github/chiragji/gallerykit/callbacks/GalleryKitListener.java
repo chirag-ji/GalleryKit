@@ -1,0 +1,26 @@
+package com.github.chiragji.gallerykit.callbacks;
+
+import androidx.annotation.NonNull;
+
+import java.util.List;
+
+/**
+ * This is the globally exposed listener that will delegate the actions performed on the UI to the
+ * implementor concrete class
+ *
+ * @author Chirag
+ * @since 1.0
+ */
+public interface GalleryKitListener {
+    /**
+     * This method will be called when <code>back</code> button is pressed
+     */
+    void onBackKeyPressed();
+
+    /**
+     * This will be called when <code>Done</code> button is pressed
+     *
+     * @param selectedDataUris list of data uri selected
+     */
+    void onSelectionConfirmed(@NonNull List<String> selectedDataUris);
+}

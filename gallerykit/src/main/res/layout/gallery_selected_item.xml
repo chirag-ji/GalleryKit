@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="75sp"
+    android:layout_height="75sp"
+    android:layout_margin="2sp"
+    android:animateLayoutChanges="true">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/imageCard"
+        android:layout_width="65sp"
+        android:layout_height="65sp"
+        android:layout_centerInParent="true"
+        app:cardCornerRadius="4sp">
+
+        <ImageView
+            android:id="@+id/selectedImgView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:contentDescription="@string/lbl_selected_image" />
+    </androidx.cardview.widget.CardView>
+
+    <ImageButton
+        android:id="@+id/clearSelectedBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/bg_gray_circle"
+        android:contentDescription="@string/lbl_clear_selected_image"
+        android:src="@drawable/ic_clear"
+        android:translationZ="3sp" />
+</RelativeLayout>

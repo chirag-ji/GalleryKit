@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.github.chiragji.gallerykit.view.SquareBoxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
+    android:padding="1sp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/contentCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:elevation="4sp"
+        app:cardCornerRadius="4sp"
+        app:cardUseCompatPadding="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/contentImg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/lbl_image_res"
+                android:foreground="@drawable/bg_transparent_ripple"
+                android:src="@drawable/ic_album_placeholder" />
+
+            <ImageView
+                android:id="@+id/checkboxImg"
+                android:layout_width="20sp"
+                android:layout_height="20sp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="5sp"
+                android:contentDescription="@string/lbl_image_select_box"
+                android:src="@drawable/ic_un_ticked" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/videoDetailsLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="4sp"
+                android:alpha="0.7"
+                android:background="@drawable/bg_rounded_corners"
+                android:padding="2sp">
+
+                <ImageView
+                    android:layout_width="15sp"
+                    android:layout_height="15sp"
+                    android:layout_gravity="center_vertical"
+                    android:backgroundTint="@android:color/white"
+                    android:contentDescription="@string/lbl_video_icon"
+                    android:src="@drawable/ic_video" />
+
+                <TextView
+                    android:id="@+id/videoDurationTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="2sp"
+                    android:layout_marginEnd="5sp"
+                    android:text="@string/lbl_sample_time"
+                    android:textColor="@android:color/white" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</com.github.chiragji.gallerykit.view.SquareBoxLayout>

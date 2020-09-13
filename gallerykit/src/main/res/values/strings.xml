@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lbl_image_res">Image Resource</string>
+    <string name="lbl_image_select_box">Image Select Box</string>
+    <string name="lbl_video_icon">Video Icon</string>
+    <string name="lbl_sample_time">00:00</string>
+    <string name="lbl_selected_image">Selected Image</string>
+    <string name="lbl_clear_selected_image">Clear Selected Image</string>
+    <string name="btn_back">Back</string>
+    <string name="btn_done">Done</string>
+</resources>
