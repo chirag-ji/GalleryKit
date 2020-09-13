@@ -36,8 +36,8 @@ dependencies {
 #### Layout
 ```
 	...
-    <com.github.chiragji.gallerykit.GalleryKitView  
-	    android:id="@+id/galleryKitView"
+    	<com.github.chiragji.gallerykit.GalleryKitView  
+		android:id="@+id/galleryKitView"
 		android:layout_width="match_parent" 
 		android:layout_height="match_parent"
 		app:maxImageSelections="3"
@@ -55,12 +55,12 @@ protected void onCreate(Bundle savedInstanceState) {
     galleryKitView.registerGalleryKitListener(new GalleryKitListener() {  
     
    	@Override  
-   	public void onBackKeyPressed() {  
+   	public void onGalleryKitBackAction() {  
             Log.d(TAG, "onBackKeyPressed: back key pressed on gallery kit");  
         }  
   
     	@Override  
-    	public void onSelectionConfirmed(@NonNull List<String> selectedDataUris) {  
+    	public void onGalleryKitSelectionConfirmed(@NonNull List<String> selectedDataUris) {  
     	    Log.d(TAG, "onSelectionConfirmed: selectedDataUris.size = " + selectedDataUris.size());  
     	    selectedDataUris.forEach(selectedUri ->  
     	            Log.d(TAG, "onSelectionConfirmed: selectedUri = " + selectedUri));  
