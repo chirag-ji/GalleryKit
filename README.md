@@ -3,8 +3,8 @@
   
 GalleryKit is **simplest / beautiful and smartest** gallery picker  
   
-- Support Image/Video
-- Support Single/Multi select
+- Support Images & Videos
+- Support Multiple selecttions
 - Fully Configurable
   
 ## Setup  
