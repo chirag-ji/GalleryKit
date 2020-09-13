@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RestrictTo;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -25,6 +26,7 @@ import com.github.chiragji.gallerykit.models.GalleryData;
 
 import java.util.Map;
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public abstract class AbstractGalleryFragment extends AbstractFragment implements GalleryExtractor.OnDataFoundListener,
         GalleryAdapter.OnSelectionUpdateListener, SelectionAdapter.OnSelectionClearListener {
     private static final String TAG = "AbstractGalleryFragment";

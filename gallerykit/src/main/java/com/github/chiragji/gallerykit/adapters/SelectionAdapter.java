@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.annotation.UiThread;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.github.chiragji.gallerykit.utils.CollectionUtils;
 
 import java.util.ArrayList;
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.ViewHolder> {
     private final Context context;
     private final OnSelectionClearListener listener;

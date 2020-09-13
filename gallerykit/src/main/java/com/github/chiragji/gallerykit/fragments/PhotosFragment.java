@@ -5,7 +5,7 @@ import androidx.annotation.RestrictTo;
 
 import com.github.chiragji.gallerykit.enums.MediaType;
 
-@RestrictTo(RestrictTo.Scope.LIBRARY)
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class PhotosFragment extends AbstractGalleryFragment {
     private static String TAG = "PhotosFragment";
 

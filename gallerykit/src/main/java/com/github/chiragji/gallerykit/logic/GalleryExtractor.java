@@ -6,6 +6,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 import com.github.chiragji.gallerykit.enums.MediaType;
 import com.github.chiragji.gallerykit.models.Album;
@@ -15,6 +16,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class GalleryExtractor {
     private static final String TAG = "GalleryExtractor";
     private final Builder builder;

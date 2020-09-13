@@ -2,11 +2,13 @@ package com.github.chiragji.gallerykit.models;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 import com.github.chiragji.gallerykit.api.AbstractFragment;
 
 import java.util.Objects;
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class FragmentWrap {
     private final AbstractFragment fragment;
     private final int selectedImgRes, unselectedImgRes;

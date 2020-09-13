@@ -3,6 +3,7 @@ package com.github.chiragji.gallerykit.helpers;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.fragment.app.Fragment;
 
 import com.github.chiragji.gallerykit.api.AbstractFragment;
@@ -15,6 +16,7 @@ import java.lang.reflect.Constructor;
  * @author Chirag
  * @since 1.0.0
  */
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public abstract class FragmentsHelper {
     /**
      * Call to this method will create a new instance of fragment with the provided bundle arguments

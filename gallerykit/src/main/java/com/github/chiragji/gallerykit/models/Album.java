@@ -1,10 +1,12 @@
 package com.github.chiragji.gallerykit.models;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class Album {
     private final int id;
 

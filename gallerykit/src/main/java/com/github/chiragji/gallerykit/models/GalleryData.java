@@ -1,12 +1,14 @@
 package com.github.chiragji.gallerykit.models;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 
 import com.github.chiragji.gallerykit.enums.MediaType;
 
 import java.io.File;
 import java.util.Objects;
 
+@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class GalleryData {
     private int id, albumId;
     private final String albumName;
