@@ -1,7 +1,7 @@
 
 
 # GalleryKit   
-[![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23)
+[![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
 
   
