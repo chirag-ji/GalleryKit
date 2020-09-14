@@ -1,4 +1,5 @@
 
+
 # GalleryKit   [![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  
   
 GalleryKit is **simplest / beautiful and smartest** gallery picker  
@@ -34,7 +35,7 @@ dependencies {
 ## Integration
 
 #### Layout
-```
+```xml
 	...
     	<com.github.chiragji.gallerykit.GalleryKitView  
 		android:id="@+id/galleryKitView"
@@ -45,7 +46,7 @@ dependencies {
 	...
 ```
 ##### AppActivity extends AppCompactActivity
-```
+```java
 protected void onCreate(Bundle savedInstanceState) {  
     super.onCreate(savedInstanceState);  
     setContentView(R.layout.activity_main);  
@@ -73,14 +74,14 @@ protected void onCreate(Bundle savedInstanceState) {
 ### Customizations
 
  -  #####  redirects for single view (images and videos are shown in one tab)
- ```
+ ```xml
 	...
 	app:combinedMaxSelections="<count>"
 	app:viewStyle="combined"
 	...
 ```
  -  #####  redirects for separate view (images and videos are shown in separate tabs)
- ```
+ ```xml
 	...
 	app:maxImageSelections="<count>"  
 	app:maxVideoSelections="<count>"
@@ -88,39 +89,39 @@ protected void onCreate(Bundle savedInstanceState) {
 	...
 ```
  -  #####  redirects for images only view
- ```
+ ```xml
 	...
 	app:maxImageSelections="<count>"
 	app:viewStyle="imageOnly"
 	...
 ```
  -  #####  redirects for images only view
- ```
+ ```xml
 	...
 	app:maxVideoSelections="<count>"
 	app:viewStyle="videoOnly"
 	...
 ```
  -  ##### disable top bar showing selected images / videos
- ```
+ ```xml
 	 ...
 	 app:showSelectedResources="false"
 	 ...
 ```
  -  ##### change back button image
- ```
+ ```xml
 	 ...
 	 app:backButtonImageSrc="@drawable/ic_clear"
 	 ...
 ```
    -  ##### hide back button
- ```
+ ```xml
 	 ...
 	 app:hideBackButton="true"
 	 ...
 ```
    -  ##### change done button color
- ```
+ ```xml
 	 ...
 	 app:doneButtonColor="@color/colorAccent"
 	 ...
