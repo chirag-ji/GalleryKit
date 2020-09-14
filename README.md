@@ -1,6 +1,9 @@
 
 
-# GalleryKit   [![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  
+# GalleryKit   
+[![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23)
+
+
   
 GalleryKit is **simplest / beautiful and smartest** gallery picker  
   
@@ -11,9 +14,7 @@ GalleryKit is **simplest / beautiful and smartest** gallery picker
 ## Setup  
   
 ### Gradle  
-  
- [![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  
-  
+
 Add `jitpack` to `build.gradle (Project level)` 
 ```css
 allprojects {
