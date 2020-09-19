@@ -20,6 +20,7 @@ import com.github.chiragji.gallerykit.models.GalleryData;
 import com.github.chiragji.gallerykit.utils.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.ViewHolder> {
@@ -63,6 +64,22 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
             this.dataList.add(data);
         else this.dataList.remove(data);
         notifyDataSetChanged();
+    }
+
+    public ArrayList<GalleryData> getDataList() {
+        return dataList;
+    }
+
+    public void updateData(@NonNull List<GalleryData> updatedData) {
+        for (int i = 0; i < updatedData.size(); i++) {
+            GalleryData data = updatedData.get(i);
+            if (!data.isSelected())
+                this.dataList.remove(data);
+            else if (!this.dataList.contains(data))
+                this.dataList.add(data);
+        }
+        if (!updatedData.isEmpty())
+            notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

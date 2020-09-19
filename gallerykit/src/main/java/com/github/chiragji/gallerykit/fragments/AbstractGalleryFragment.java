@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.github.chiragji.gallerykit.GalleryKitView;
 import com.github.chiragji.gallerykit.R;
 import com.github.chiragji.gallerykit.adapters.GalleryAdapter;
 import com.github.chiragji.gallerykit.adapters.SelectionAdapter;
@@ -24,6 +25,8 @@ import com.github.chiragji.gallerykit.logic.GalleryExtractor;
 import com.github.chiragji.gallerykit.models.Album;
 import com.github.chiragji.gallerykit.models.GalleryData;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
@@ -44,7 +47,12 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
     private int maxImageSelections, maxVideoSelections, maxCombinedSelections;
 
     private SelectionUpdateListener selectionUpdateListener;
-    private int selectedDataCount = 0;
+
+    private final GalleryKitView kitView;
+
+    public AbstractGalleryFragment(@NonNull GalleryKitView galleryKitView) {
+        this.kitView = galleryKitView;
+    }
 
     @Nullable
     @Override
@@ -99,12 +107,8 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
     @Override
     public void onSelectionUpdated(@NonNull GalleryData data, boolean selected) {
         if (selected) {
-            selectedDataCount++;
             selectionUpdateListener.onSelectionAdded(data);
-        } else {
-            selectedDataCount--;
-            selectionUpdateListener.onSelectionRemoved(data);
-        }
+        } else selectionUpdateListener.onSelectionRemoved(data);
         if (showSelectedResources) {
             this.selectionAdapter.updateSelectedData(data, selected);
             layoutSelectedItemList();
@@ -119,7 +123,8 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
     }
 
     private void layoutSelectedItemList() {
-        selectedItemsList.setVisibility(selectedDataCount <= 0 ? View.GONE : View.VISIBLE);
+        if (showSelectedResources)
+            selectedItemsList.setVisibility(selectionAdapter.getItemCount() <= 0 ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -148,6 +153,23 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
 
     public void setSelectionUpdateListener(@NonNull SelectionUpdateListener selectionUpdateListener) {
         this.selectionUpdateListener = selectionUpdateListener;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter.getItemCount() > 0) {
+            List<String> selectedDataList = kitView.getSelectedData();
+            List<GalleryData> updatedData = new LinkedList<>();
+            boolean removeAll = selectedDataList.isEmpty();
+            for (GalleryData data : this.adapter.getDataList()) {
+                data.setSelected(!removeAll && selectedDataList.contains(data.getDataUri()));
+                updatedData.add(data);
+            }
+            selectionAdapter.updateData(updatedData);
+            adapter.updateData(updatedData);
+            layoutSelectedItemList();
+        }
     }
 
     @NonNull

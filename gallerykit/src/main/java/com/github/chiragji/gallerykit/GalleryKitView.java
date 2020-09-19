@@ -33,7 +33,9 @@ import com.github.chiragji.gallerykit.utils.Preconditions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 public class GalleryKitView extends FrameLayout implements SelectionUpdateListener {
     private static final String TAG = "GalleryKitView";
@@ -133,21 +135,21 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
 
         switch (viewStyle) {
             case COMBINE:
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(CombinedViewFragment.class, data),
+                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(CombinedViewFragment.class, data, this),
                         R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
                 break;
             case SEPARATE:
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(PhotosFragment.class, data),
+                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(PhotosFragment.class, data, this),
                         R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(VideosFragment.class, data),
+                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(VideosFragment.class, data, this),
                         R.drawable.ic_video_selected, R.drawable.ic_video_unselected));
                 break;
             case IMAGES_ONLY:
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(PhotosFragment.class, data),
+                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(PhotosFragment.class, data, this),
                         R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
                 break;
             case VIDEOS_ONLY:
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(VideosFragment.class, data),
+                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(VideosFragment.class, data, this),
                         R.drawable.ic_video_selected, R.drawable.ic_video_unselected));
                 break;
         }
@@ -230,5 +232,15 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         this.selectedData.remove(data.getDataUri());
         if (selectedData.isEmpty())
             doneBtn.setVisibility(INVISIBLE);
+    }
+
+    @NonNull
+    public List<String> getSelectedData() {
+        return Collections.unmodifiableList(selectedData);
+    }
+
+    public void setSelectedData(@NonNull List<String> dataUriList) {
+        this.selectedData.clear();
+        this.selectedData.addAll(dataUriList);
     }
 }

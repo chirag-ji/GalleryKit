@@ -30,6 +30,7 @@ import com.github.chiragji.gallerykit.utils.CollectionUtils;
 import com.github.chiragji.gallerykit.utils.TimeUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
@@ -134,6 +135,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         }
     }
 
+    public void updateData(@NonNull List<GalleryData> updatedDataList) {
+        if (!updatedDataList.isEmpty())
+            notifyDataSetChanged();
+    }
+
     public int getDataIndex(GalleryData data) {
         for (int i = 0; i < dataList.size(); i++) {
             if (dataList.get(i).equals(data))
@@ -154,6 +160,10 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     public void applyData(@NonNull GalleryData galleryData) {
         dataList.add(galleryData);
         notifyItemInserted(dataList.size());
+    }
+
+    public ArrayList<GalleryData> getDataList() {
+        return dataList;
     }
 
     @Override
