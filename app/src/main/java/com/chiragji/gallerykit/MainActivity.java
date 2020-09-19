@@ -1,37 +1,53 @@
 package com.chiragji.gallerykit;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
-import com.github.chiragji.gallerykit.GalleryKitView;
-import com.github.chiragji.gallerykit.callbacks.GalleryKitListener;
+import com.chiragji.gallerykit.adapter.MainViewAdapter;
+import com.chiragji.gallerykit.fragments.GalleryFragment;
+import com.chiragji.gallerykit.fragments.MainFragment;
 
-import java.util.List;
-
-public class MainActivity extends AppCompatActivity implements GalleryKitListener {
+public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
+
+    private static MainActivity mainActivity;
+
+    private ViewPager2 pager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        GalleryKitView galleryKitView = findViewById(R.id.galleryKitView);
-        galleryKitView.attachToFragmentActivity(this);
-        galleryKitView.registerGalleryKitListener(this);
+        pager = findViewById(R.id.pager);
+
+        init();
+    }
+
+    private void init() {
+        Bundle args = new Bundle();
+        MainFragment mainFragment = new MainFragment();
+        mainFragment.setArguments(args);
+        GalleryFragment galleryFragment = new GalleryFragment(mainFragment);
+        galleryFragment.setArguments(args);
+        pager.setAdapter(new MainViewAdapter(this, mainFragment, galleryFragment));
+        pager.setUserInputEnabled(false);
+    }
+
+    public static void toggleGalleryFragment(boolean open) {
+        mainActivity.pager.setCurrentItem(open ? 1 : 0);
     }
 
     @Override
-    public void onGalleryKitBackAction() {
-        Log.d(TAG, "onBackKeyPressed: back key pressed on gallery kit");
+    protected void onResume() {
+        super.onResume();
+        mainActivity = this;
     }
 
     @Override
-    public void onGalleryKitSelectionConfirmed(@NonNull List<String> selectedDataUris) {
-        Log.d(TAG, "onSelectionConfirmed: selectedDataUris.size = " + selectedDataUris.size());
-        selectedDataUris.forEach(selectedUri ->
-                Log.d(TAG, "onSelectionConfirmed: selectedUri = " + selectedUri));
+    protected void onDestroy() {
+        super.onDestroy();
+        mainActivity = null;
     }
 }

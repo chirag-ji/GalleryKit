@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GalleryKit</string>
+    <string name="btn_clear_button">clear button</string>
+    <string name="lbl_image">image</string>
+    <string name="lbl_gallery"><![CDATA[gallery >]]></string>
+    <string name="msg_no_selection">Noting Selected\nOpen Gallery to select data</string>
 </resources>
