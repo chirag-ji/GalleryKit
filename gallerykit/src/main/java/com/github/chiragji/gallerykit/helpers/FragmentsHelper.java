@@ -24,7 +24,7 @@ public abstract class FragmentsHelper {
      * @param clazz Class of fragment
      * @param <T>   Type of fragment
      * @return Constructed instance of the fragment
-     * @see #getInstance(Class, Bundle)
+     * @see #getInstance(Class, Bundle, Object...)
      */
     public static <T extends AbstractFragment> T getInstance(Class<T> clazz) {
         return getInstance(clazz, new Bundle());
@@ -33,16 +33,21 @@ public abstract class FragmentsHelper {
     /**
      * Call to this method will create a new instance of fragment with the provided bundle arguments
      *
-     * @param clazz Class of fragment
-     * @param data  An instance of {@link Bundle} representing arguments
-     * @param <T>   Type of fragment
+     * @param clazz    Class of fragment
+     * @param data     An instance of {@link Bundle} representing arguments
+     * @param <T>      Type of fragment
+     * @param initArgs initializing arguments for the fragment
      * @return Constructed instance of the fragment
      */
-    public static <T extends Fragment> T getInstance(Class<T> clazz, @NonNull Bundle data) {
+    public static <T extends Fragment> T getInstance(@NonNull Class<T> clazz, @NonNull Bundle data, Object... initArgs) {
         try {
-            Constructor<T> constructor = clazz.getDeclaredConstructor();
+            Class<?>[] paramClasses = new Class[initArgs.length];
+            for (int i = 0; i < initArgs.length; i++) {
+                paramClasses[i] = initArgs[i].getClass();
+            }
+            Constructor<T> constructor = clazz.getDeclaredConstructor(paramClasses);
             constructor.setAccessible(true);
-            T inst = constructor.newInstance();
+            T inst = constructor.newInstance(initArgs);
             inst.setArguments(data);
             return inst;
         } catch (Exception e) {
