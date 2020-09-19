@@ -91,10 +91,6 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         array.recycle();
     }
 
-    public void registerKitListener(@NonNull GalleryKitListener galleryKitListener) {
-        this.listener = galleryKitListener;
-    }
-
     private int getColor(@ColorRes int res) {
         return getContext().getColor(res);
     }
