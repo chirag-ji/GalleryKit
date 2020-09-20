@@ -8,6 +8,15 @@ import com.github.chiragji.gallerykit.api.AbstractFragment;
 
 import java.util.Objects;
 
+/**
+ * The wrapper for the fragments,
+ * The core concept of this wrapper is to keep the selected/unselected icons for the fragment,
+ * making the tabs in the main window to rendered dynamically
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 1
+ * @since 1.0.0
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class FragmentWrap {
     private final AbstractFragment fragment;

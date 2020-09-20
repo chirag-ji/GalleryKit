@@ -13,7 +13,8 @@ import java.lang.reflect.Constructor;
 /**
  * A helper class to initiate the instance of fragments quickly
  *
- * @author Chirag
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 2
  * @since 1.0.0
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)

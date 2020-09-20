@@ -29,6 +29,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The main implementation, where all of the core process happens.
+ * Since this is an abstract class, an implementor is required to ask what king of media needs to
+ * be inflated and provide the enclosing instance of {@link GalleryKitView},
+ * ie, it can be the type defined in {@link MediaType}
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 3
+ * @since 1.0.0
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public abstract class AbstractGalleryFragment extends AbstractFragment implements GalleryExtractor.OnDataFoundListener,
         GalleryAdapter.OnSelectionUpdateListener, SelectionAdapter.OnSelectionClearListener {

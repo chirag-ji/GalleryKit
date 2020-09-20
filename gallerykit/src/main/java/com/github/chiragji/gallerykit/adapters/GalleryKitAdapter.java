@@ -8,6 +8,13 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.github.chiragji.gallerykit.api.AbstractFragment;
 
+/**
+ * An adapter that inflates the screens to the main window
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 1
+ * @since 1.0.0
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class GalleryKitAdapter extends FragmentStateAdapter {
     private final AbstractFragment[] fragments;

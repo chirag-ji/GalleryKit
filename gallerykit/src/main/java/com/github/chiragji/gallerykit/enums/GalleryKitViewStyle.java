@@ -1,9 +1,11 @@
 package com.github.chiragji.gallerykit.enums;
 
 /**
- * This is the viewing styles of the {@link com.github.chiragji.gallerykit.GalleryKitView}
+ * This will viewing styles for the {@link com.github.chiragji.gallerykit.GalleryKitView}, and
+ * denotes how the main window will be rendered♥s
  *
  * @author Chirag
+ * @version 1
  * @since 1.0.0
  */
 public enum GalleryKitViewStyle {

@@ -6,7 +6,10 @@ import androidx.annotation.RestrictTo;
 import com.github.chiragji.gallerykit.models.GalleryData;
 
 /**
+ * An internal listener, used to delegate the selections to {@link com.github.chiragji.gallerykit.GalleryKitView}
+ *
  * @author Chirag
+ * @version 1
  * @since 1.0.0
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)

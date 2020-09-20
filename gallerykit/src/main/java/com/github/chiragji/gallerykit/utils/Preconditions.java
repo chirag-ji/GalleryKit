@@ -11,7 +11,8 @@ import java.util.Collection;
  * It's a utility class that contains some validation code
  *
  * @author Chirag
- * @since 1.0
+ * @version 1
+ * @since 1.0.0
  */
 public abstract class Preconditions {
 

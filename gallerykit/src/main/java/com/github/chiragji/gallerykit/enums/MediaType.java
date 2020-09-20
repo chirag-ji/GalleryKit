@@ -4,6 +4,7 @@ package com.github.chiragji.gallerykit.enums;
  * Constants determining the media types
  *
  * @author Chirag
+ * @version 1
  * @since 1.0.0
  */
 public enum MediaType {

@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
  * Utility class containing some common methods to interact with time
  *
  * @author Chirag
+ * @version 1
  * @since 1.0.0
  */
 public abstract class TimeUtils {

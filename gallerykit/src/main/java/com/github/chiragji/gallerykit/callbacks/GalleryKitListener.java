@@ -5,11 +5,12 @@ import androidx.annotation.NonNull;
 import java.util.List;
 
 /**
- * This is the globally exposed listener that will delegate the actions performed on the UI to the
+ * A the globally exposed listener that will delegate the actions performed on the UI to the
  * implementor concrete class
  *
  * @author Chirag
- * @since 1.0
+ * @version 1
+ * @since 1.0.0
  */
 public interface GalleryKitListener {
     /**

@@ -22,6 +22,13 @@ import com.github.chiragji.gallerykit.utils.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This will inflate the selected images on the bar above the data list
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 2
+ * @since 1.0.0
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.ViewHolder> {
     private final Context context;

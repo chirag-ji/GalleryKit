@@ -8,6 +8,13 @@ import com.github.chiragji.gallerykit.enums.MediaType;
 import java.io.File;
 import java.util.Objects;
 
+/**
+ * The main model data wrap, contains all the data of a image/video
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 1
+ * @since 1.0.0
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class GalleryData {
     private int id, albumId;

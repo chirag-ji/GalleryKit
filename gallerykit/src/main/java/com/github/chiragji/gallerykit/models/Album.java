@@ -6,6 +6,13 @@ import androidx.annotation.RestrictTo;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * The model data wrapper shows the gallery data containing in a single album
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 1
+ * @since 1.0.0
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class Album {
     private final int id;

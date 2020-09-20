@@ -37,6 +37,18 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This is the layout which can be embedded to the views created with XML. And manages all the
+ * process
+ * <p>
+ * It can be fully customizable
+ * <p>
+ * It's an direct implementor of {@link FrameLayout}.
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 3
+ * @since 1.0.0
+ */
 public class GalleryKitView extends FrameLayout implements SelectionUpdateListener {
     private static final String TAG = "GalleryKitView";
 

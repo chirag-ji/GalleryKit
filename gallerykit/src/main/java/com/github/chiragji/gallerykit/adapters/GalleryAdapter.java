@@ -32,6 +32,13 @@ import com.github.chiragji.gallerykit.utils.TimeUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adapter that inflates the gallery items
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 2
+ * @since 1.0.0
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
     private static final String TAG = "GalleryAdapter";

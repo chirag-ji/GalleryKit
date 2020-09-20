@@ -9,6 +9,7 @@ import java.util.Map;
  * Utility class contains some of common methods for interacting wih collections
  *
  * @author Chirag
+ * @version 1
  * @since 1.0.0
  */
 public abstract class CollectionUtils {

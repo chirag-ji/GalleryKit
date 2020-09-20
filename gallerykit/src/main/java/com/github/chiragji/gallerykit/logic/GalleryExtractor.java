@@ -16,6 +16,13 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The core, it will discovers all the contents from storage which are a valid image/video
+ *
+ * @author Chirag [apps.chiragji@outlook.com]
+ * @version 1
+ * @since 1.0.0
+ */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class GalleryExtractor {
     private static final String TAG = "GalleryExtractor";
