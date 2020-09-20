@@ -145,8 +145,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     }
 
     public void updateData(@NonNull List<GalleryData> updatedDataList) {
-        if (!updatedDataList.isEmpty())
-            notifyDataSetChanged();
+        selectedData = 0;
+        for (GalleryData data : updatedDataList) {
+            if (data.isSelected()) selectedData++;
+        }
+        if (threshold != -1) {
+            if (selectedData >= threshold) {
+                disabled = true;
+                disableUnSelected(true);
+            } else {
+                disabled = false;
+                disableUnSelected(false);
+            }
+        } else notifyDataSetChanged();
     }
 
     public int getDataIndex(GalleryData data) {
