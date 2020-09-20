@@ -27,7 +27,7 @@ Add `dependency` to `build.gradle (app level)`
 ```css
 dependencies {
 	...
-	implementation 'com.github.chirag-ji:GalleryKit:1.0.3'
+	implementation 'com.github.chirag-ji:GalleryKit:${Tagged Release Version}'
 	...
 }
 ```
