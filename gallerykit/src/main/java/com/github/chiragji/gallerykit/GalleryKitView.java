@@ -61,6 +61,9 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
     private LinkedList<String> selectedData = new LinkedList<>();
     private boolean attached;
 
+    // These list are used to track data selection and revert in case of back key pressed
+    private LinkedList<String> addedData, removedData;
+
     public GalleryKitView(@NonNull Context context) {
         super(context);
     }
@@ -120,9 +123,15 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
             backBtn.setVisibility(GONE);
         } else {
             backBtn.setVisibility(VISIBLE);
-            backBtn.setOnClickListener(view ->
-                    Preconditions.checkNotNull(listener, "GalleryKitListener not registered").onGalleryKitBackAction());
+            backBtn.setOnClickListener(view -> {
+                Preconditions.checkNotNull(listener, "GalleryKitListener not registered").onGalleryKitBackAction();
+                selectedData.removeAll(addedData);
+                selectedData.addAll(removedData);
+                clearStackData();
+            });
             backBtn.setImageResource(backBtnImageRes);
+            addedData = new LinkedList<>();
+            removedData = new LinkedList<>();
         }
         doneBtn.setTextColor(doneBtnColor);
         doneBtn.setOnClickListener(view -> onDoneAction());
@@ -185,6 +194,7 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
     private void onDoneAction() {
         Preconditions.checkNotNull(listener, "GalleryKitListener not registered");
         listener.onGalleryKitSelectionConfirmed(selectedData);
+        clearStackData();
     }
 
     public void attachToFragment(@NonNull Fragment fragment) {
@@ -225,6 +235,10 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
     public void onSelectionAdded(@NonNull GalleryData data) {
         this.selectedData.add(data.getDataUri());
         doneBtn.setVisibility(VISIBLE);
+        if (!hideBackButton) {
+            addedData.add(data.getDataUri());
+            removedData.remove(data.getDataUri());
+        }
     }
 
     @Override
@@ -232,6 +246,10 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         this.selectedData.remove(data.getDataUri());
         if (selectedData.isEmpty())
             doneBtn.setVisibility(INVISIBLE);
+        if (!hideBackButton) {
+            addedData.remove(data.getDataUri());
+            removedData.add(data.getDataUri());
+        }
     }
 
     @NonNull
@@ -242,5 +260,11 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
     public void setSelectedData(@NonNull List<String> dataUriList) {
         this.selectedData.clear();
         this.selectedData.addAll(dataUriList);
+    }
+
+    private void clearStackData() {
+        if (hideBackButton) return;
+        addedData.clear();
+        removedData.clear();
     }
 }
