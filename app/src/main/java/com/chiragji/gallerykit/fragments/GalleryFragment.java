@@ -13,9 +13,13 @@ import com.chiragji.gallerykit.R;
 import com.github.chiragji.gallerykit.GalleryKitView;
 import com.github.chiragji.gallerykit.callbacks.GalleryKitListener;
 
+import java.util.List;
+
 public class GalleryFragment extends Fragment {
 
     private final GalleryKitListener listener;
+
+    private GalleryKitView galleryKitView;
 
     public GalleryFragment(@NonNull GalleryKitListener kitListener) {
         this.listener = kitListener;
@@ -29,8 +33,13 @@ public class GalleryFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        GalleryKitView galleryKitView = view.findViewById(R.id.galleryKitView);
+        galleryKitView = view.findViewById(R.id.galleryKitView);
         galleryKitView.attachToFragment(this);
         galleryKitView.registerGalleryKitListener(this.listener);
+    }
+
+    public void setSelectedData(@NonNull List<String> dataList) {
+        if (galleryKitView != null)
+            galleryKitView.setSelectedData(dataList);
     }
 }

@@ -74,4 +74,9 @@ public class MainFragment extends Fragment implements GalleryKitListener {
         MainActivity.toggleGalleryFragment(false);
         toggleListView();
     }
+
+    @NonNull
+    public List<String> getSelectedData() {
+        return adapter.getSelectedDataList();
+    }
 }
