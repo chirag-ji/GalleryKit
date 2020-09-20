@@ -22,7 +22,8 @@
         android:layout_toStartOf="@+id/clearButton"
         android:layout_toEndOf="@+id/image"
         android:ellipsize="marquee"
-        android:maxWidth="150sp" />
+        android:maxWidth="150sp"
+        android:maxLines="3" />
 
     <ImageButton
         android:id="@+id/clearButton"

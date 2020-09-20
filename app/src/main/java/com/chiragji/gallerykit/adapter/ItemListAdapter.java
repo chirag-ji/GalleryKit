@@ -36,8 +36,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ViewHo
         Glide.with(holder.itemView).load(dataUri).thumbnail(0.1F)
                 .apply(new RequestOptions().centerCrop()).into(holder.image);
         holder.clearButton.setOnClickListener(view -> {
-            this.selectedDataList.remove(position);
-            notifyItemRemoved(position);
+            this.selectedDataList.remove(dataUri);
+            notifyDataSetChanged();
         });
     }
 
