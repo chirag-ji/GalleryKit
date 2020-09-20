@@ -113,9 +113,11 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         if (data.isEnabled()) {
             holder.contentCard.setAlpha(1F);
             holder.contentCard.setClickable(true);
+            holder.contentCard.setEnabled(true);
         } else {
             holder.contentCard.setAlpha(0.5F);
             holder.contentCard.setClickable(false);
+            holder.contentCard.setEnabled(false);
         }
     }
 
