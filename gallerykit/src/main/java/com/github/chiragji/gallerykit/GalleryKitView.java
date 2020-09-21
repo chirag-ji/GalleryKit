@@ -135,12 +135,7 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
             backBtn.setVisibility(GONE);
         } else {
             backBtn.setVisibility(VISIBLE);
-            backBtn.setOnClickListener(view -> {
-                Preconditions.checkNotNull(listener, "GalleryKitListener not registered").onGalleryKitBackAction();
-                selectedData.removeAll(addedData);
-                selectedData.addAll(removedData);
-                clearStackData();
-            });
+            backBtn.setOnClickListener(view -> notifyBackPressed(true));
             backBtn.setImageResource(backBtnImageRes);
             addedData = new LinkedList<>();
             removedData = new LinkedList<>();
@@ -278,5 +273,19 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         if (hideBackButton) return;
         addedData.clear();
         removedData.clear();
+    }
+
+    /**
+     * Call to this method to notify gallery kit about back key pressed on the fragment or activity
+     *
+     * @param notifyListener notify attached listener or not
+     */
+    public final void notifyBackPressed(boolean notifyListener) {
+        if (notifyListener)
+            Preconditions.checkNotNull(listener, "GalleryKitListener not registered").onGalleryKitBackAction();
+        selectedData.removeAll(addedData);
+        selectedData.addAll(removedData);
+        clearStackData();
+        if (notifyListener) listener.onGalleryKitBackAction();
     }
 }
