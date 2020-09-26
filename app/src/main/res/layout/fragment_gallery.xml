@@ -8,5 +8,7 @@
         android:id="@+id/galleryKitView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:maxImageSelections="8"
+        app:maxVideoSelections="5"
         app:viewStyle="separate" />
 </RelativeLayout>
