@@ -1,6 +1,5 @@
 package com.github.chiragji.gallerykit.adapters;
 
-import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -16,17 +15,15 @@ import androidx.annotation.UiThread;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.Target;
 import com.github.chiragji.gallerykit.R;
 import com.github.chiragji.gallerykit.enums.MediaType;
 import com.github.chiragji.gallerykit.models.GalleryData;
 import com.github.chiragji.gallerykit.utils.CollectionUtils;
+import com.github.chiragji.gallerykit.utils.ImageUtils;
 import com.github.chiragji.gallerykit.utils.TimeUtils;
 
 import java.util.ArrayList;
@@ -36,14 +33,13 @@ import java.util.List;
  * Adapter that inflates the gallery items
  *
  * @author Chirag [apps.chiragji@outlook.com]
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
     private static final String TAG = "GalleryAdapter";
 
-    private final Context context;
     private final OnSelectionUpdateListener listener;
     private final int threshold;
 
@@ -51,8 +47,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     private boolean disabled;
     private int selectedData;
 
-    public GalleryAdapter(@NonNull Context context, @NonNull OnSelectionUpdateListener listener, int threshold) {
-        this.context = context;
+    public GalleryAdapter(@NonNull OnSelectionUpdateListener listener, int threshold) {
         this.listener = listener;
         this.threshold = threshold;
     }
@@ -88,12 +83,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
                 return false;
             }
         };
-        Glide.with(context).load(data.getDataUri()).thumbnail(0.1f)
-                .apply(new RequestOptions().centerCrop())
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .listener(requestListener)
-                .placeholder(R.drawable.ic_album_placeholder)
-                .into(holder.contentImg);
+        ImageUtils.loadImage(data.getDataUri(), holder.contentImg, requestListener);
         holder.contentCard.setOnClickListener(view -> {
             selectedData += data.isSelected() ? -1 : 1;
             data.setSelected(!data.isSelected());

@@ -1,6 +1,5 @@
 package com.github.chiragji.gallerykit.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +12,10 @@ import androidx.annotation.UiThread;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.github.chiragji.gallerykit.R;
 import com.github.chiragji.gallerykit.models.GalleryData;
 import com.github.chiragji.gallerykit.utils.CollectionUtils;
+import com.github.chiragji.gallerykit.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +29,11 @@ import java.util.List;
  */
 @RestrictTo(RestrictTo.Scope.LIBRARY_GROUP_PREFIX)
 public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.ViewHolder> {
-    private final Context context;
     private final OnSelectionClearListener listener;
 
     private ArrayList<GalleryData> dataList = new ArrayList<>();
 
-    public SelectionAdapter(@NonNull Context context, @NonNull OnSelectionClearListener listener) {
-        this.context = context;
+    public SelectionAdapter(@NonNull OnSelectionClearListener listener) {
         this.listener = listener;
     }
 
@@ -51,8 +47,7 @@ public class SelectionAdapter extends RecyclerView.Adapter<SelectionAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         GalleryData data = dataList.get(position);
-        Glide.with(context).load(data.getDataUri()).thumbnail(0.1F)
-                .apply(new RequestOptions().centerCrop()).into(holder.selectedImgView);
+        ImageUtils.loadImage(data.getDataUri(), holder.selectedImgView);
         holder.clearSelectedBtn.setOnClickListener(view -> {
             this.dataList.remove(data);
             notifyItemRemoved(position);

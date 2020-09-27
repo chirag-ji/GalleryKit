@@ -97,12 +97,12 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
             threshold = maxImageSelections;
         else threshold = maxCombinedSelections;
 
-        adapter = new GalleryAdapter(requireContext(), this, threshold);
+        adapter = new GalleryAdapter(this, threshold);
         contentGrid.setAdapter(adapter);
 
         if (showSelectedResources) {
             selectedItemsList.setLayoutManager(new LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false));
-            selectionAdapter = new SelectionAdapter(requireContext(), this);
+            selectionAdapter = new SelectionAdapter(this);
             selectedItemsList.setAdapter(selectionAdapter);
         }
         selectedItemsList.setVisibility(View.GONE);
