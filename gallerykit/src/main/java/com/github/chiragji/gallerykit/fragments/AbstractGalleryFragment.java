@@ -1,5 +1,7 @@
 package com.github.chiragji.gallerykit.fragments;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -10,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -106,7 +109,9 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
             selectedItemsList.setAdapter(selectionAdapter);
         }
         selectedItemsList.setVisibility(View.GONE);
-        runGalleryHarvester(mediaType);
+
+        if (hasPermissions())
+            runGalleryExtractor(getMediaType());
     }
 
     @Override
@@ -145,7 +150,7 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
         }
     }
 
-    private void runGalleryHarvester(MediaType mediaType) {
+    private void runGalleryExtractor(MediaType mediaType) {
         GalleryExtractor.OnCompleteListener listener = new GalleryExtractor.OnCompleteListener() {
             @Override
             public void accept(@NonNull Map<String, Album> albumMap) {
@@ -179,6 +184,31 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
             selectionAdapter.updateData(updatedData);
             adapter.updateData(updatedData);
             layoutSelectedItemList();
+        }
+    }
+
+    private boolean hasPermissions() {
+        String[] requestParams = new String[]{
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(requestParams, 5555);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 5555) {
+            for (int i = 0; i < permissions.length; i++) {
+                if (permissions[i].equals(Manifest.permission.WRITE_EXTERNAL_STORAGE) &&
+                        grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    runGalleryExtractor(getMediaType());
+                    break;
+                }
+            }
         }
     }
 
