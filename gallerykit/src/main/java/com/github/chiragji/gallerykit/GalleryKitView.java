@@ -78,6 +78,7 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
 
     private final Editor editor = new Editor();
 
+    // Changes for GalleryKitAdapter, used to re-render the controls
     private FragmentActivity attachedActivity;
     private Fragment attachedFragment;
 
@@ -234,12 +235,20 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         clearStackData();
     }
 
+    /**
+     * @see #attach(Fragment)
+     * @deprecated
+     */
     @Deprecated
     public void attachToFragment(@NonNull Fragment fragment) {
         markAttached();
         setupPager(new GalleryKitAdapter(fragment, getFragments()));
     }
 
+    /**
+     * @see #attach(FragmentActivity)
+     * @deprecated
+     */
     @Deprecated
     public void attachToFragmentActivity(@NonNull FragmentActivity fragmentActivity) {
         markAttached();
@@ -346,11 +355,17 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         return editor;
     }
 
+    /**
+     * Internal method, intended to be called up by {@link GalleryKitDialog}
+     */
     void sync() {
         if (initDone && kitAdapter != null)
             kitAdapter.notifySync();
     }
 
+    /**
+     * Class or wrapper, used to edit the view after it is rendered
+     */
     public final class Editor {
         private boolean backBtnImgEdited, combinedMaxSelEdited, maxImageSelEdited, maxVideoSelEdited,
                 doneButtonColorEdited, hideButtonEdited, showSelResEdited, viewStyleEdited;
@@ -358,47 +373,94 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         private Editor() {
         }
 
+        /**
+         * apply all the changes made
+         */
         public void applyChanges() {
             if (!GalleryKitView.this.attached)
                 throw new IllegalStateException("GalleryKitView not attached to Fragment/FragmentActivity");
             GalleryKitView.this.setupControls();
         }
 
+        /**
+         * Set the back button custom image
+         *
+         * @param backBtnImage resource id for image
+         */
         public void setBackButtonImageResource(@DrawableRes int backBtnImage) {
             GalleryKitView.this.backBtnImageRes = backBtnImage;
             backBtnImgEdited = true;
         }
 
+        /**
+         * Set the maximum selection for {@link GalleryKitViewStyle#COMBINE}
+         *
+         * @param combinedMaxSelections maximum combined selection
+         */
         public void setCombinedMaxSelections(int combinedMaxSelections) {
             GalleryKitView.this.combinedMaxSelections = combinedMaxSelections;
             combinedMaxSelEdited = true;
         }
 
+        /**
+         * Set the maximum selection for {@link GalleryKitViewStyle#IMAGES_ONLY}
+         *
+         * @param maxImageSelections maximum image selection
+         */
         public void setMaxImageSelections(int maxImageSelections) {
             GalleryKitView.this.maxImageSelections = maxImageSelections;
             maxImageSelEdited = true;
         }
 
+        /**
+         * Set the maximum selection for {@link GalleryKitViewStyle#VIDEOS_ONLY}
+         *
+         * @param maxVideosSelections maximum video selection
+         */
         public void setMaxVideosSelections(int maxVideosSelections) {
             GalleryKitView.this.maxVideosSelections = maxVideosSelections;
             maxVideoSelEdited = true;
         }
 
+        /**
+         * Set the color for the Done Button
+         *
+         * @param doneBtnColor ColorInt for setting
+         */
         public void setDoneButtonColor(@ColorInt int doneBtnColor) {
             GalleryKitView.this.doneBtnColor = doneBtnColor;
             doneButtonColorEdited = true;
         }
 
+        /**
+         * Weather to hide the back button or not
+         * <p>
+         * Default <code>false</code>
+         *
+         * @param hideBackButton true to hide back button
+         */
         public void setHideBackButton(boolean hideBackButton) {
             GalleryKitView.this.hideBackButton = hideBackButton;
             hideButtonEdited = true;
         }
 
+        /**
+         * Displays the selected resources on top of the list
+         * <p>
+         * Default <code>true</code>
+         *
+         * @param showSelectedResources false to hide the selection list
+         */
         public void setShowSelectedResources(boolean showSelectedResources) {
             GalleryKitView.this.showSelectedImages = showSelectedResources;
             showSelResEdited = true;
         }
 
+        /**
+         * Sets the viewing style to GalleryKit
+         *
+         * @param viewStyle an constant from {@link GalleryKitViewStyle}
+         */
         public void setViewStyle(GalleryKitViewStyle viewStyle) {
             GalleryKitView.this.viewStyle = viewStyle;
             viewStyleEdited = true;
