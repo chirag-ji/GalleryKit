@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.dcendents.android-maven'
 
-def libVersion = '1.0.5'
+def libVersion = '1.1.0'
 
 android {
     compileSdkVersion 30
@@ -10,7 +10,7 @@ android {
     defaultConfig {
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 6
+        versionCode 7
         versionName libVersion
 
         consumerProguardFiles "consumer-rules.pro"
