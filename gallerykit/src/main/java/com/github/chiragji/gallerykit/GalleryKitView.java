@@ -71,10 +71,15 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
 
     private LinkedList<FragmentWrap> fragments = new LinkedList<>();
     private LinkedList<String> selectedData = new LinkedList<>();
-    private boolean attached;
+    private boolean attached, initDone;
 
     // These list are used to track data selection and revert in case of back key pressed
     private LinkedList<String> addedData, removedData;
+
+    private final Editor editor = new Editor();
+
+    private FragmentActivity attachedActivity;
+    private Fragment attachedFragment;
 
     public GalleryKitView(@NonNull Context context) {
         super(context);
@@ -122,53 +127,81 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         doneBtn = view.findViewById(R.id.doneBtn);
 
         setupControls();
+        initDone = true;
     }
 
     private void setupControls() {
         fragments.clear();
-        if (hideBackButton) {
-            backBtn.setVisibility(GONE);
-        } else {
-            backBtn.setVisibility(VISIBLE);
-            backBtn.setOnClickListener(view -> notifyBackPressed(true));
-            backBtn.setImageResource(backBtnImageRes);
-            addedData = new LinkedList<>();
-            removedData = new LinkedList<>();
+        if (!initDone || editor.hideButtonEdited || editor.backBtnImgEdited) {
+            if (hideBackButton) {
+                backBtn.setVisibility(GONE);
+            } else {
+                backBtn.setVisibility(VISIBLE);
+                backBtn.setOnClickListener(view -> notifyBackPressed(true));
+                backBtn.setImageResource(backBtnImageRes);
+                addedData = new LinkedList<>();
+                removedData = new LinkedList<>();
+            }
         }
-        doneBtn.setTextColor(doneBtnColor);
-        doneBtn.setOnClickListener(view -> onDoneAction());
-        doneBtn.setVisibility(INVISIBLE);
-        Bundle data = new Bundle();
-        data.putBoolean(AbstractGalleryFragment.KEY_SHOW_SELECTED_IMAGES, showSelectedImages);
-        data.putInt(AbstractGalleryFragment.KEY_MAX_IMAGES_SELECTION, maxImageSelections);
-        data.putInt(AbstractGalleryFragment.KEY_MAX_VIDEO_SELECTION, maxVideosSelections);
-        data.putInt(AbstractGalleryFragment.KEY_COMBINED_MAX_SELECTION, combinedMaxSelections);
+        if (!initDone || editor.doneButtonColorEdited) {
+            doneBtn.setTextColor(doneBtnColor);
+            doneBtn.setOnClickListener(view -> onDoneAction());
+            doneBtn.setVisibility(INVISIBLE);
+        }
+        if (!initDone || isRenderingEdited()) {
+            Bundle data = new Bundle();
+            data.putBoolean(AbstractGalleryFragment.KEY_SHOW_SELECTED_IMAGES, showSelectedImages);
+            data.putInt(AbstractGalleryFragment.KEY_MAX_IMAGES_SELECTION, maxImageSelections);
+            data.putInt(AbstractGalleryFragment.KEY_MAX_VIDEO_SELECTION, maxVideosSelections);
+            data.putInt(AbstractGalleryFragment.KEY_COMBINED_MAX_SELECTION, combinedMaxSelections);
 
-        switch (viewStyle) {
-            case COMBINE:
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(CombinedViewFragment.class, data, this),
-                        R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
-                break;
-            case SEPARATE:
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(PhotosFragment.class, data, this),
-                        R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(VideosFragment.class, data, this),
-                        R.drawable.ic_video_selected, R.drawable.ic_video_unselected));
-                break;
-            case IMAGES_ONLY:
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(PhotosFragment.class, data, this),
-                        R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
-                break;
-            case VIDEOS_ONLY:
-                fragments.add(new FragmentWrap(FragmentsHelper.getInstance(VideosFragment.class, data, this),
-                        R.drawable.ic_video_selected, R.drawable.ic_video_unselected));
-                break;
+            switch (viewStyle) {
+                case COMBINE:
+                    fragments.add(new FragmentWrap(FragmentsHelper.getInstance(CombinedViewFragment.class, data, this),
+                            R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
+                    break;
+                case SEPARATE:
+                    fragments.add(new FragmentWrap(FragmentsHelper.getInstance(PhotosFragment.class, data, this),
+                            R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
+                    fragments.add(new FragmentWrap(FragmentsHelper.getInstance(VideosFragment.class, data, this),
+                            R.drawable.ic_video_selected, R.drawable.ic_video_unselected));
+                    break;
+                case IMAGES_ONLY:
+                    fragments.add(new FragmentWrap(FragmentsHelper.getInstance(PhotosFragment.class, data, this),
+                            R.drawable.ic_photos_selected, R.drawable.ic_photos_unselected));
+                    break;
+                case VIDEOS_ONLY:
+                    fragments.add(new FragmentWrap(FragmentsHelper.getInstance(VideosFragment.class, data, this),
+                            R.drawable.ic_video_selected, R.drawable.ic_video_unselected));
+                    break;
+            }
+            setupTabLayout();
         }
-        setupTabLayout();
+        if (isRenderingEdited() && initDone) {
+            attachInternal(attachedFragment, attachedActivity);
+        }
+        markEditingComplete();
+    }
+
+    private boolean isRenderingEdited() {
+        return editor.combinedMaxSelEdited || editor.maxImageSelEdited || editor.maxVideoSelEdited
+                || editor.showSelResEdited || editor.viewStyleEdited;
+    }
+
+    private void markEditingComplete() {
+        editor.backBtnImgEdited = false;
+        editor.combinedMaxSelEdited = false;
+        editor.maxImageSelEdited = false;
+        editor.maxVideoSelEdited = false;
+        editor.doneButtonColorEdited = false;
+        editor.hideButtonEdited = false;
+        editor.showSelResEdited = false;
+        editor.viewStyleEdited = false;
     }
 
     private void setupTabLayout() {
         tabLayout.setVisibility(VISIBLE);
+        tabLayout.removeAllTabs();
         for (FragmentWrap wrap : fragments) {
             tabLayout.addTab(tabLayout.newTab().setIcon(wrap.getUnselectedImgRes()));
             if (wrap.getFragment() instanceof AbstractGalleryFragment) {
@@ -228,6 +261,8 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         else adapter = new GalleryKitAdapter(fragmentActivity, getFragments());
         setupPager(adapter);
         attached = true;
+        attachedFragment = fragment;
+        attachedActivity = fragmentActivity;
     }
 
     @Deprecated
@@ -304,5 +339,63 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         selectedData.addAll(removedData);
         clearStackData();
         if (notifyListener) listener.onGalleryKitBackAction();
+    }
+
+    public Editor getEditor() {
+        return editor;
+    }
+
+    public final class Editor {
+        private boolean backBtnImgEdited, combinedMaxSelEdited, maxImageSelEdited, maxVideoSelEdited,
+                doneButtonColorEdited, hideButtonEdited, showSelResEdited, viewStyleEdited;
+
+        private Editor() {
+        }
+
+        public void applyChanges() {
+            if (!GalleryKitView.this.attached)
+                throw new IllegalStateException("GalleryKitView not attached to Fragment/FragmentActivity");
+            GalleryKitView.this.setupControls();
+        }
+
+        public void setBackButtonImageResource(@DrawableRes int backBtnImage) {
+            GalleryKitView.this.backBtnImageRes = backBtnImage;
+            backBtnImgEdited = true;
+        }
+
+        public void setCombinedMaxSelections(int combinedMaxSelections) {
+            GalleryKitView.this.combinedMaxSelections = combinedMaxSelections;
+            combinedMaxSelEdited = true;
+        }
+
+        public void setMaxImageSelections(int maxImageSelections) {
+            GalleryKitView.this.maxImageSelections = maxImageSelections;
+            maxImageSelEdited = true;
+        }
+
+        public void setMaxVideosSelections(int maxVideosSelections) {
+            GalleryKitView.this.maxVideosSelections = maxVideosSelections;
+            maxVideoSelEdited = true;
+        }
+
+        public void setDoneButtonColor(@ColorInt int doneBtnColor) {
+            GalleryKitView.this.doneBtnColor = doneBtnColor;
+            doneButtonColorEdited = true;
+        }
+
+        public void setHideBackButton(boolean hideBackButton) {
+            GalleryKitView.this.hideBackButton = hideBackButton;
+            hideButtonEdited = true;
+        }
+
+        public void setShowSelectedResources(boolean showSelectedResources) {
+            GalleryKitView.this.showSelectedImages = showSelectedResources;
+            showSelResEdited = true;
+        }
+
+        public void setViewStyle(GalleryKitViewStyle viewStyle) {
+            GalleryKitView.this.viewStyle = viewStyle;
+            viewStyleEdited = true;
+        }
     }
 }
