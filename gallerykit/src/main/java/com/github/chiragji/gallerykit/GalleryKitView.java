@@ -46,7 +46,7 @@ import java.util.List;
  * It's an direct implementor of {@link FrameLayout}.
  *
  * @author Chirag [apps.chiragji@outlook.com]
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class GalleryKitView extends FrameLayout implements SelectionUpdateListener {
@@ -110,11 +110,6 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
 
     private int getColor(@ColorRes int res) {
         return getContext().getColor(res);
-    }
-
-    @Override
-    public void requestLayout() {
-        super.requestLayout();
     }
 
     @Override
@@ -204,16 +199,38 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
         clearStackData();
     }
 
+    @Deprecated
     public void attachToFragment(@NonNull Fragment fragment) {
         markAttached();
         setupPager(new GalleryKitAdapter(fragment, getFragments()));
     }
 
+    @Deprecated
     public void attachToFragmentActivity(@NonNull FragmentActivity fragmentActivity) {
         markAttached();
         setupPager(new GalleryKitAdapter(fragmentActivity, getFragments()));
     }
 
+    public void attach(@NonNull Fragment fragment) {
+        Preconditions.checkNotNull(fragment, "Fragment is null");
+        attachInternal(fragment, null);
+    }
+
+    public void attach(@NonNull FragmentActivity fragmentActivity) {
+        Preconditions.checkNotNull(fragmentActivity, "FragmentActivity is null");
+        attachInternal(null, fragmentActivity);
+    }
+
+    private void attachInternal(Fragment fragment, FragmentActivity fragmentActivity) {
+        GalleryKitAdapter adapter;
+        if (fragmentActivity == null)
+            adapter = new GalleryKitAdapter(fragment, getFragments());
+        else adapter = new GalleryKitAdapter(fragmentActivity, getFragments());
+        setupPager(adapter);
+        attached = true;
+    }
+
+    @Deprecated
     private void markAttached() {
         if (attached)
             throw new IllegalStateException("GalleryKit already attached to fragment/activity");
