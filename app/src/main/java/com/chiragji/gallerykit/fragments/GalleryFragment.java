@@ -34,7 +34,7 @@ public class GalleryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         galleryKitView = view.findViewById(R.id.galleryKitView);
-        galleryKitView.attachToFragment(this);
+        galleryKitView.attach(this);
         galleryKitView.registerGalleryKitListener(this.listener);
     }
 

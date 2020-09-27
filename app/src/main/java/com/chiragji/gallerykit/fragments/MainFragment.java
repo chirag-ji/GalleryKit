@@ -15,18 +15,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chiragji.gallerykit.MainActivity;
 import com.chiragji.gallerykit.R;
 import com.chiragji.gallerykit.adapter.ItemListAdapter;
+import com.github.chiragji.gallerykit.GalleryKitDialog;
 import com.github.chiragji.gallerykit.callbacks.GalleryKitListener;
+import com.github.chiragji.gallerykit.enums.GalleryKitViewStyle;
 import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
 public class MainFragment extends Fragment implements GalleryKitListener {
 
-    private MaterialButton galleryBtn;
+    private MaterialButton galleryBtn, openGalleryDialogBtn;
     private RecyclerView selectedItemsListView;
     private TextView noSelectionView;
 
     private ItemListAdapter adapter;
+
+    private GalleryKitDialog kitDialog;
 
     @Nullable
     @Override
@@ -39,6 +43,7 @@ public class MainFragment extends Fragment implements GalleryKitListener {
         galleryBtn = view.findViewById(R.id.galleryBtn);
         selectedItemsListView = view.findViewById(R.id.selectedItemsListView);
         noSelectionView = view.findViewById(R.id.noSelectionView);
+        openGalleryDialogBtn = view.findViewById(R.id.openGalleryDialogBtn);
 
         init();
     }
@@ -50,6 +55,15 @@ public class MainFragment extends Fragment implements GalleryKitListener {
         adapter = new ItemListAdapter();
         selectedItemsListView.setAdapter(adapter);
 
+        openGalleryDialogBtn.setOnClickListener(view -> {
+            if (kitDialog == null) {
+                kitDialog = new GalleryKitDialog.Builder(this, this)
+                        .setViewStyle(GalleryKitViewStyle.SEPARATE)
+                        .setMaxImageSelections(1).build();
+            }
+            kitDialog.setSelectedData(getSelectedData());
+            kitDialog.show();
+        });
         toggleListView();
     }
 

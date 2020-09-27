@@ -4,4 +4,5 @@
     <string name="lbl_image">image</string>
     <string name="lbl_gallery"><![CDATA[gallery >]]></string>
     <string name="msg_no_selection">Noting Selected\nOpen Gallery to select data</string>
+    <string name="btn_gallery_dialog">gallery dialog</string>
 </resources>
