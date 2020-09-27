@@ -81,6 +81,8 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
     private FragmentActivity attachedActivity;
     private Fragment attachedFragment;
 
+    private GalleryKitAdapter kitAdapter;
+
     public GalleryKitView(@NonNull Context context) {
         super(context);
     }
@@ -255,11 +257,10 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
     }
 
     private void attachInternal(Fragment fragment, FragmentActivity fragmentActivity) {
-        GalleryKitAdapter adapter;
         if (fragmentActivity == null)
-            adapter = new GalleryKitAdapter(fragment, getFragments());
-        else adapter = new GalleryKitAdapter(fragmentActivity, getFragments());
-        setupPager(adapter);
+            kitAdapter = new GalleryKitAdapter(fragment, getFragments());
+        else kitAdapter = new GalleryKitAdapter(fragmentActivity, getFragments());
+        setupPager(kitAdapter);
         attached = true;
         attachedFragment = fragment;
         attachedActivity = fragmentActivity;
@@ -343,6 +344,11 @@ public class GalleryKitView extends FrameLayout implements SelectionUpdateListen
 
     public Editor getEditor() {
         return editor;
+    }
+
+    void sync() {
+        if (initDone && kitAdapter != null)
+            kitAdapter.notifySync();
     }
 
     public final class Editor {

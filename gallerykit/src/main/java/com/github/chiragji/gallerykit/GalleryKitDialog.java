@@ -64,8 +64,13 @@ public class GalleryKitDialog implements GalleryKitListener {
         kitView.notifyBackPressed(true);
     }
 
+    public void setSelectedData(@NonNull List<String> selectedData) {
+        kitView.setSelectedData(selectedData);
+    }
+
     public void show() {
         sheetDialog.show();
+        kitView.sync();
     }
 
     public void dismiss() {

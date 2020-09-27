@@ -173,7 +173,7 @@ public abstract class AbstractGalleryFragment extends AbstractFragment implement
     @Override
     public void onResume() {
         super.onResume();
-        if (adapter.getItemCount() > 0) {
+        if (adapter != null && adapter.getItemCount() > 0) {
             List<String> selectedDataList = kitView.getSelectedData();
             List<GalleryData> updatedData = new LinkedList<>();
             boolean removeAll = selectedDataList.isEmpty();
