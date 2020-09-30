@@ -52,7 +52,7 @@ protected void onCreate(Bundle savedInstanceState) {
     setContentView(R.layout.activity_main);  
     ...
     GalleryKitView galleryKitView = findViewById(R.id.galleryKitView);  
-    galleryKitView.attachToFragmentActivity(this);  
+    galleryKitView.attach(this);  
     galleryKitView.registerGalleryKitListener(new GalleryKitListener() {  
     
    	@Override  
