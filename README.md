@@ -1,7 +1,3 @@
-
-
-
-
 # GalleryKit   
 [![](https://jitpack.io/v/chirag-ji/GalleryKit.svg)](https://jitpack.io/#chirag-ji/GalleryKit)  [![API](https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=23) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com) ![issues](https://img.shields.io/github/issues/chirag-ji/GalleryKit) ![forks](https://img.shields.io/github/forks/chirag-ji/GalleryKit) [![GitHub stars](https://img.shields.io/github/stars/chirag-ji/GalleryKit?label=stars)](https://github.com/chirag-ji/GalleryKit/stargazers) [![GitHub license](https://img.shields.io/github/license/chirag-ji/GalleryKit?label=license)](https://github.com/chirag-ji/GalleryKit/blob/master/LICENSE)  ![androidx](https://img.shields.io/badge/androidx-brightgreen.svg) [![Gradle Version](https://img.shields.io/badge/gradle-6.5-green.svg)](https://docs.gradle.org/current/release-notes) [![Hits-of-Code](https://hitsofcode.com/github/chirag-ji/GalleryKit)](https://hitsofcode.com/view/github/chirag-ji/GalleryKit) ![Android CI](https://github.com/chirag-ji/GalleryKit/workflows/Android%20CI/badge.svg)
   
@@ -16,7 +12,7 @@ GalleryKit is **simplest / beautiful and smartest** gallery picker
 ### Gradle  
 
 Add `jitpack` to `build.gradle (Project level)` 
-```css
+```groovy
 allprojects {
 	repositories {
 		...
@@ -25,7 +21,7 @@ allprojects {
 }
 ```
 Add `dependency` to `build.gradle (app level)`
-```css
+```groovy
 dependencies {
 	...
 	implementation 'com.github.chirag-ji:GalleryKit:${Tagged Release Version}'
